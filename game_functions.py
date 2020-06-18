@@ -13,9 +13,10 @@ all the game's functions
     """
     responsible for all graphics within the current game state
     """
-    def draw_game_state(self, screen, gs, square_size,dimension):
+    def draw_game_state(self, images, screen, board, square_size,dimension):
         self.draw_board(screen, square_size, dimension)
         # add in piece highlighting later
+        self.draw_pieces(images, screen, board, square_size, dimension)
 
     # draw_pieces(screen,gs.board)
 
@@ -30,7 +31,11 @@ all the game's functions
                 color = colors[((r + c) % 2)]
                 pg.draw.rect(screen, color, pg.Rect(c * square_size, r * square_size, square_size, square_size))
 
-    def draw_pieces(screen, board):
-        pass
+    def draw_pieces(self, images, screen, board, square_size, dimension):
+        for r in range(dimension):
+            for c in range(dimension):
+                piece = board[r][c]
+                if piece != "  ":
+                    screen.blit(images[piece], pg.Rect(c*square_size, r*square_size, square_size, square_size))
 
 

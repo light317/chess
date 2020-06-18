@@ -36,7 +36,7 @@ def main():
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 game_running = False
-        gf.draw_game_state( screen, gs, square_size,dimension)
+        gf.draw_game_state(images, screen, gs.board, square_size, dimension)
         clock.tick(max_fps)
         pg.display.flip()
 
