@@ -4,3 +4,9 @@ venv
 env
 .pytest_cache
 .coverage
+/.vs/chess/v16/.suo
+/.vs/chess/v16/TestStore/0/000-0000.testlog
+/.vs/chess/v16/TestStore/0/testlog.manifest
+/.vs/ProjectSettings.json
+/.vs/slnx.sqlite
+/.vs/VSWorkspaceState.json
