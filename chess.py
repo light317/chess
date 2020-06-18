@@ -13,7 +13,7 @@ max_fps = 15
 images = {}
 
 """
-initialize a global dictionary of images. this will be called exactly once in the main 
+initialize a global dictionary of images. this will be called exactly once in the main
 """
 
 def load_images():
@@ -23,10 +23,24 @@ def load_images():
     # we can access an image by saying images['wp']
 
 
-
 def main():
-    screen = pg.display.set_mode(width,height)
+    screen = pg.display.set_mode((width,height))
     clock = pg.time.Clock()
+    screen.fill(pg.Color('black'))
+    gs = ChessEngine.GameState()
+    load_images() #called only once thats why it is beofre the main loop
+    game_running = True
+    while game_running:
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                game_running = False
+
+        clock.tick(max_fps)
+        pg.display.flip()
 
 
 
+
+
+if __name__ == "__main__":
+    main()
