@@ -5,11 +5,12 @@ main driver for the chess game
 import pygame as pg
 import chess_engine
 import game_functions
+import pandas
 
 pg.init()
 width = height = 512
 dimension = 8
-square_size = height//dimension
+square_size = height // dimension
 max_fps = 15
 images = {}
 
@@ -22,7 +23,6 @@ def load_images():
     for piece in pieces:
         images[piece] = pg.transform.scale(pg.image.load("images/" + piece + ".png"),(square_size,square_size))
     # we can access an image by saying images['wp']
-
 
 def main():
     screen = pg.display.set_mode((width,height))
@@ -41,6 +41,9 @@ def main():
         pg.display.flip()
 
 
+def mock():
+    pass
 
 if __name__ == "__main__":
     main()
+
