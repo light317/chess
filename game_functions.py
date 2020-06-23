@@ -35,6 +35,6 @@ all the game's functions
         for r in range(dimension):
             for c in range(dimension):
                 piece = board[r][c]
-                if piece != "  ":
+                if piece != "--":
                     screen.blit(images[piece], pg.Rect(c*square_size, r*square_size, square_size, square_size))
 

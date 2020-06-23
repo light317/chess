@@ -6,28 +6,34 @@ class GameState():
     def __init__(self):
         self.board = [["bR","bN","bB","bQ","bK","bB","bN","bR"],
                       ["bP","bP","bP","bP","bP","bP","bP","bP"],
-                      ["  ","  ","  ","  ","  ","  ","  ","  "],
-                      ["  ","  ","  ","  ","  ","  ","  ","  "],
-                      ["  ","  ","  ","  ","  ","  ","  ","  "],
-                      ["  ","  ","  ","  ","  ","  ","  ","  "],
+                      ["--","--","--","--","--","--","--","--"],
+                      ["--","--","--","--","--","--","--","--"],
+                      ["--","--","--","--","--","--","--","--"],
+                      ["--","--","--","--","--","--","--","--"],
                       ["wP","wP","wP","wP","wP","wP","wP","wP"],
                       ["wR","wN","wB","wQ","wK","wB","wN","wR"]]
-        self.whiteToMove = True
+        self.whiteToMove = True # white player always starts
         self.moveLog = []
+
+    def makeMove(self, move):
+        self.board[move.start_row][move.start_col] = "--"
+        self.board[move.end_row][move.end_col] = move.pieceMoved
+        self.moveLog.append(move) #log the move so we can undo later
+        self.whiteToMove = not self.whiteToMove # to swap players
 
 
 class Move():
-    # varriables to convert between chess notations and regular array notations
 
+    # varriables to convert between chess notations and regular array notations
     ranks_to_rows = {"1":7,"2":6,"3":5,"4":4,
                      "5":3,"6":2,"7":1,"8":0}
 
     rows_to_ranks = {v: k for k,v in ranks_to_rows.items()}
 
-    files_to_col = {"a":0,"b":1,"c":2,"d":3,
+    files_to_cols = {"a":0,"b":1,"c":2,"d":3,
                     "e":4,"f":5,"g":6,"h":7}
 
-    rows_to_raks = {v: k for k,v in files_to_col.items()}
+    cols_to_files = {v: k for k,v in files_to_cols.items()}
 
     def __init__(self, start_square, end_square, board):
         self.start_row = start_square[0]
@@ -38,4 +44,8 @@ class Move():
         self.piece_captured = board[self.end_row, self.end_col]
 
     def getChessNotation(self):
-        pass
+        # can later be improved to work like real chess notation
+        return self.getRankFile(self.start_row,self.start_col) + self.getRankFile(self.end_row, self.end_col)
+
+    def getRankFile(self, r, c):
+        return self.cols_to_files[c] + sefl.rows_to_ranks[r]

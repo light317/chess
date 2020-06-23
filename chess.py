@@ -30,7 +30,7 @@ def main():
     screen.fill(pg.Color('white'))
     gf.loadImages(images, square_size)
     game_running = True
-    selected_square = {} # no squares selected initially, tuple {row,col}
+    selected_square = () # no squares selected initially, tuple {row,col}
     player_clicks = [] # keep track of the player clicks, (two tuples, [{4,3},{6,6}]
     while game_running:
         for event in pg.event.get():
@@ -41,13 +41,18 @@ def main():
                 col = location[0] // square_size
                 row = location[1] // square_size
                 if selected_square == {row,col}: # if the selected square is theame as the mouse click, reset it
-                    selected_Square = {}
-                    player_clicks = {}
+                    selected_square = ()
+                    player_clicks = []
                 else:
-                     selected_Square = {row,col}
+                     selected_square = {row,col}
                      player_clicks.append(selected_square)
                 if len(player_clicks) == 2:   #after 2 clicks
-                   pass
+                   move = chess_engine.Move(player_clicks[0], player_clicks[1], gs.board)
+                   print(move.getChessNotation())
+                   gs.makeMove(move)
+                   selected_square = () # reset user clicks
+                   player_clicks = []
+
 
         gf.drawGameState(images, screen, gs.board, square_size, dimension)
         clock.tick(max_fps)
