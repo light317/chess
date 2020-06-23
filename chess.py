@@ -5,7 +5,6 @@ main driver for the chess game
 import pygame as pg
 import chess_engine
 import game_functions
-import pandas
 
 pg.init()
 width = height = 512
@@ -18,25 +17,39 @@ images = {}
 initialize a global dictionary of images. this will be called exactly once in the main
 """
 
-def load_images():
+def loadImages():
     pieces = ['wP','wR','wN','wB','wQ','wK','bP','bR','bN','bB','bQ','bK']
     for piece in pieces:
         images[piece] = pg.transform.scale(pg.image.load("images/" + piece + ".png"),(square_size,square_size))
     # we can access an image by saying images['wp']
-
 def main():
     screen = pg.display.set_mode((width,height))
     clock = pg.time.Clock()
     gs = chess_engine.GameState()
     gf = game_functions.GameFunctions()
     screen.fill(pg.Color('white'))
-    gf.load_images(images, square_size)
+    gf.loadImages(images, square_size)
     game_running = True
+    selected_square = {} # no squares selected initially, tuple {row,col}
+    player_clicks = [] # keep track of the player clicks, (two tuples, [{4,3},{6,6}]
     while game_running:
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 game_running = False
-        gf.draw_game_state(images, screen, gs.board, square_size, dimension)
+            elif event.type == pg.MOUSEBUTTONDOWN:
+                location = pg.mouse.get_pos() # (x,y) location of the mouse
+                col = location[0] // square_size
+                row = location[1] // square_size
+                if selected_square == {row,col}: # if the selected square is theame as the mouse click, reset it
+                    selected_Square = {}
+                    player_clicks = {}
+                else:
+                     selected_Square = {row,col}
+                     player_clicks.append(selected_square)
+                if len(player_clicks) == 2:   #after 2 clicks
+                   pass
+
+        gf.drawGameState(images, screen, gs.board, square_size, dimension)
         clock.tick(max_fps)
         pg.display.flip()
 
