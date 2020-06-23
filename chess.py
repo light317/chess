@@ -40,11 +40,11 @@ def main():
                 location = pg.mouse.get_pos() # (x,y) location of the mouse
                 col = location[0] // square_size
                 row = location[1] // square_size
-                if selected_square == {row,col}: # if the selected square is theame as the mouse click, reset it
+                if selected_square == (row,col): # if the selected square is theame as the mouse click, reset it
                     selected_square = ()
                     player_clicks = []
                 else:
-                     selected_square = {row,col}
+                     selected_square = (row,col)
                      player_clicks.append(selected_square)
                 if len(player_clicks) == 2:   #after 2 clicks
                    move = chess_engine.Move(player_clicks[0], player_clicks[1], gs.board)
