@@ -36,6 +36,7 @@ def main():
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 game_running = False
+            #mouse hamdler
             elif event.type == pg.MOUSEBUTTONDOWN:
                 location = pg.mouse.get_pos() # (x,y) location of the mouse
                 col = location[0] // square_size
@@ -53,6 +54,10 @@ def main():
                    selected_square = () # reset user clicks
                    player_clicks = []
 
+            # key handlers
+            elif event.type == pg.KEYDOWN:
+                if event.key == pg.K_z: #undo when 'z' is pressed
+                    gs.undoMove()
 
         gf.drawGameState(images, screen, gs.board, square_size, dimension)
         clock.tick(max_fps)
