@@ -19,10 +19,11 @@ class GameState():
         takes a Move as a parameter and execute it, this will not work for castling, pawn promotion and en passant .. need to implement that later
         '''
     def makeMove(self, move):
-        self.board[move.start_row][move.start_col] = "--"
-        self.board[move.end_row][move.end_col] = move.piece_moved
-        self.moveLog.append(move) #log the move so we can undo later
-        self.whiteToMove = not self.whiteToMove # to swap players
+        if self.board[move.start_row][move.start_col] != "--":
+            self.board[move.start_row][move.start_col] = "--"
+            self.board[move.end_row][move.end_col] = move.piece_moved
+            self.moveLog.append(move) #log the move so we can undo later
+            self.whiteToMove = not self.whiteToMove # to swap players
 
     '''
     undo the last move made
