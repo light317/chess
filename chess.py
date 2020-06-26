@@ -27,6 +27,9 @@ def main():
     clock = pg.time.Clock()
     gs = chess_engine.GameState()
     gf = game_functions.GameFunctions()
+    validMoves = gs.getValidMoves()
+    moveMade = False #flag variable for when a move is made
+
     screen.fill(pg.Color('white'))
     gf.loadImages(images, square_size)
     game_running = True
@@ -50,6 +53,9 @@ def main():
                 if len(player_clicks) == 2:   #after 2 clicks
                    move = chess_engine.Move(player_clicks[0], player_clicks[1], gs.board)
                    print(move.getChessNotation())
+                   if move in validMoves:
+                       gs.makeMove(move)
+                       moveMade = True
                    gs.makeMove(move)
                    selected_square = () # reset user clicks
                    player_clicks = []
@@ -58,6 +64,11 @@ def main():
             elif event.type == pg.KEYDOWN:
                 if event.key == pg.K_z: #undo when 'z' is pressed
                     gs.undoMove()
+                    moveMade = True
+
+        if moveMade:
+            validMoves = gs.getValidMoves()
+            moveMade = False
 
         gf.drawGameState(images, screen, gs.board, square_size, dimension)
         clock.tick(max_fps)
