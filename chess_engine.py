@@ -46,7 +46,7 @@ class GameState():
     All possible moves
     '''
     def getAllPossibleMoves(self):
-        moves = []
+        moves = [Move((6,4), (4,4), self.board)]
         for r in range(len(self.board)): #number of rows
             for c in range(len(self.board[r])): # number of cols in a given row
                 turn = self.board[r][c][0] # the first char of a board piece represents the color 'w' or 'b'
